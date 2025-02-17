@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
@@ -15,12 +16,27 @@ public enum BrowserType
 }
 
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-public class BrowserAllowedMiddleware(RequestDelegate next)
+public class BrowserAllowedMiddleware(RequestDelegate next, IEnumerable<BrowserType> browserAllowedList)
 {
     public async Task Invoke(HttpContext httpContext)
     {
         var clientBrowserType = IdentitfyBrowserType(httpContext);
-        await next(httpContext);
+
+        if (browserAllowedList.Any(browser => browser == clientBrowserType))
+        {
+            await next(httpContext);
+        }
+        else
+        {
+            //Fehlerfall
+            httpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+            httpContext.Response.ContentType = "text/html";
+            await httpContext.Response.WriteAsync(
+                $"Der Browser <strong>{clientBrowserType}</strong> wird leider nicht unterstuetzt. " +
+                $"<a href=\"https://browsehappy.com\">BrowseHappy</a>",
+                Encoding.UTF8);
+        }
+
     }
 
     private BrowserType IdentitfyBrowserType(HttpContext httpContext)
@@ -61,8 +77,8 @@ public class BrowserAllowedMiddleware(RequestDelegate next)
 // Extension method used to add the middleware to the HTTP request pipeline.
 public static class BrowserAllowedMiddlewareExtensions
 {
-    public static IApplicationBuilder UseBrowserAllowedMiddleware(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseBrowserAllowedMiddleware(this IApplicationBuilder builder, params IEnumerable<BrowserType> browserAllowedList)
     {
-        return builder.UseMiddleware<BrowserAllowedMiddleware>();
+        return builder.UseMiddleware<BrowserAllowedMiddleware>(browserAllowedList);
     }
 }
