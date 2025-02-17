@@ -30,7 +30,7 @@ var app = builder.Build();
 //##############################################################
 
 // Configure the HTTP request pipeline. ################################################
-app.UseBrowserAllowedMiddleware(BrowserType.Chrome, BrowserType.Edge);
+//app.UseBrowserAllowedMiddleware(BrowserType.Chrome, BrowserType.Edge);
 
 if (app.Environment.IsDevelopment())
 {
