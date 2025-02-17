@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DataTransferObjects;
 
 namespace Api.Controllers;
 
@@ -11,15 +12,12 @@ public class QotdController : ControllerBase
     [HttpGet]  //=> localhost:1234/api/qotd
     public IActionResult GetQuoteOfTheDay()
     {
-        var qotd = new Quote
+        var qotd = new QuoteOfTheDayDto
         {
-            QuoteText = "Larum lierum Löffelstiel, wer nicht fragt, der weiß nicht viel!",
-            Author = new Author
-            {
-                Name = "Ich",
-                Description = "Dozent",
-                BirthDate = DateOnly.FromDateTime(DateTime.Today)
-            }
+            AuthorName = "Ich",
+            AuthorDescription = "Dozent",
+            AuthorBirthdate = DateOnly.FromDateTime(DateTime.Today),
+            QuoteText = "Larum Lierum"
         };
 
         return Ok(qotd);
