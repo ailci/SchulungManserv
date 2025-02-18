@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Contracts;
+using Persistence.Repositories;
 
 namespace Api.Extensions;
 
@@ -28,5 +30,12 @@ public static class ServiceExtenions
         return services;
     }
 
+
+    public static IServiceCollection ConfigureRepo(this IServiceCollection services)
+    {
+        services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+        return services;
+    }
 
 }
