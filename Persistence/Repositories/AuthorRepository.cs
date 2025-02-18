@@ -15,4 +15,10 @@ public class AuthorRepository(QotdContext qotdContext) :  RepositoryBase<Author>
     {
         return await GetAll().ToListAsync();
     }
+
+    public async Task<Author> GetAuthorAsync(Guid authorId)
+    {
+        //QotdContext.Authors.FindAsync(authorId);
+        return await FindByCondition(author => author.Id.Equals(authorId)).SingleOrDefaultAsync();
+    }
 }

@@ -26,4 +26,10 @@ public class AuthorService : IAuthorService
 
         return _mapper.Map<IEnumerable<AuthorDto>>(authors);
     }
+
+    public async Task<AuthorDto> GetAuthorAsync(Guid authorId)
+    {
+        var author = await _repositoryManager.AuthorRepo.GetAuthorAsync(authorId);
+        return _mapper.Map<AuthorDto>(author);
+    }
 }
