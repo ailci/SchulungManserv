@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .ConfigureApi()
     .ConfigureDb(builder.Configuration)
-    .ConfigureRepo();
+    .ConfigureRepo()
+    .ConfigureServiceManager();
 
 var app = builder.Build();
 

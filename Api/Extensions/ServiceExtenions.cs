@@ -2,6 +2,7 @@
 using Persistence;
 using Persistence.Contracts;
 using Persistence.Repositories;
+using Services;
 
 namespace Api.Extensions;
 
@@ -34,6 +35,13 @@ public static class ServiceExtenions
     public static IServiceCollection ConfigureRepo(this IServiceCollection services)
     {
         services.AddScoped<IRepositoryManager, RepositoryManager>();
+
+        return services;
+    } 
+    
+    public static IServiceCollection ConfigureServiceManager(this IServiceCollection services)
+    {
+        services.AddScoped<IServiceManager, ServiceManager>();
 
         return services;
     }
