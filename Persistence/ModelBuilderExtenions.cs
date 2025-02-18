@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence;
 
-static class ModelBuilderExtenions
+internal static class ModelBuilderExtenions
 {
-    static void Seed(this ModelBuilder modelBuilder)
+    internal static void Seed(this ModelBuilder modelBuilder)
     {
         var einsteinId = Guid.Parse("78c83367-25de-4780-8a35-0c5636d3ca50");
         var twainId = Guid.Parse("4577dc8b-9648-4b9e-a4c7-3fd2dbf9e6cc");
