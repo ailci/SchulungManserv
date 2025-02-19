@@ -4,7 +4,7 @@ using Api.Middleware;
 using Logging;
 
 var builder = WebApplication.CreateBuilder(args);
-IFormFile
+
 //Serilog
 builder.ConfigLoggingService();
 
