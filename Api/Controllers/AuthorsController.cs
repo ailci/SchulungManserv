@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Logging;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -11,10 +12,12 @@ public class AuthorsController : ControllerBase
     #region Member/Constructor
 
     private readonly IServiceManager _serviceManager;
+    private readonly ILoggerManager _logger;
 
-    public AuthorsController(IServiceManager serviceManager)
+    public AuthorsController(IServiceManager serviceManager, ILoggerManager logger)
     {
         _serviceManager = serviceManager;
+        _logger = logger;
     }
 
     #endregion
@@ -24,6 +27,7 @@ public class AuthorsController : ControllerBase
     [HttpGet(Name = "GetAuthors")]
     public async Task<IActionResult> Get()
     {
+        _logger.LogInformation("Get Autoren aufgerufen...");
         var authorDtos = await _serviceManager.AuthorService.GetAuthorsAsync();
         return Ok(authorDtos);
     }
