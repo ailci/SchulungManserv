@@ -21,4 +21,9 @@ public class AuthorRepository(QotdContext qotdContext) :  RepositoryBase<Author>
         //QotdContext.Authors.FindAsync(authorId);
         return await FindByCondition(author => author.Id.Equals(authorId)).SingleOrDefaultAsync();
     }
+
+    public void CreateAuthor(Author author)
+    {
+        Create(author);
+    }
 }
