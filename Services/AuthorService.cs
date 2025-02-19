@@ -22,9 +22,9 @@ public class AuthorService : IAuthorService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<AuthorDto>> GetAuthorsAsync()
+    public async Task<IEnumerable<AuthorDto>> GetAuthorsAsync(bool trackChanges)
     {
-        var authors = await _repositoryManager.AuthorRepo.GetAuthorsAsync();
+        var authors = await _repositoryManager.AuthorRepo.GetAuthorsAsync(trackChanges);
 
         return _mapper.Map<IEnumerable<AuthorDto>>(authors);
     }

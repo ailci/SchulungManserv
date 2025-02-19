@@ -29,7 +29,7 @@ public class AuthorsController : ControllerBase
     public async Task<IActionResult> Get()
     {
         _logger.LogInformation("Get Autoren aufgerufen...");
-        var authorDtos = await _serviceManager.AuthorService.GetAuthorsAsync();
+        var authorDtos = await _serviceManager.AuthorService.GetAuthorsAsync(trackChanges: false);
         return Ok(authorDtos);
     }
 

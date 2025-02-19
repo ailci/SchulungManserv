@@ -20,9 +20,9 @@ public class QotdService : IQotdService
         _mapper = mapper;
     }
 
-    public async Task<QuoteOfTheDayDto> GetQuoteOfTheDayAsync()
+    public async Task<QuoteOfTheDayDto> GetQuoteOfTheDayAsync(bool trackChanges)
     {
-        var randomQuote = await _repositoryManager.QuoteRepo.GetRandomQuoteAsync();
+        var randomQuote = await _repositoryManager.QuoteRepo.GetRandomQuoteAsync(trackChanges);
 
         //return new QuoteOfTheDayDto
         //{

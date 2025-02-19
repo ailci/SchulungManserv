@@ -11,9 +11,9 @@ namespace Persistence.Repositories;
 
 public class AuthorRepository(QotdContext qotdContext) :  RepositoryBase<Author>(qotdContext),IAuthorRepository
 {
-    public async Task<IEnumerable<Author>> GetAuthorsAsync()
+    public async Task<IEnumerable<Author>> GetAuthorsAsync(bool trackChanges)
     {
-        return await GetAll().ToListAsync();
+        return await GetAll(trackChanges).ToListAsync();
     }
 
     public async Task<Author> GetAuthorAsync(Guid authorId)

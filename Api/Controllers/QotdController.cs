@@ -16,6 +16,6 @@ public class QotdController(IServiceManager serviceManager) : ControllerBase
     [HttpGet]  //=> localhost:1234/api/qotd
     public async Task<IActionResult> GetQuoteOfTheDay()
     {
-       return Ok(await serviceManager.QotdService.GetQuoteOfTheDayAsync());
+       return Ok(await serviceManager.QotdService.GetQuoteOfTheDayAsync(false));
     }
 }
