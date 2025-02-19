@@ -21,5 +21,7 @@ public abstract class AuthorForManipulationDto
 
     [NoFutureDate(ErrorMessage = "Geburtsdatum liegt in der Zukunft")]
     public DateOnly? BirthDate { get; set; }
+
+    [AllowedExtensions(["jpg", "jpeg", "png", "gif"])]
     public IFormFile? Photo { get; set; }
 }

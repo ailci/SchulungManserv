@@ -58,4 +58,15 @@ public class AuthorsController : ControllerBase
     }
 
     #endregion
+
+    #region DELETE
+
+    [HttpDelete("{id:guid}", Name = "DeleteAuthor")]
+    public async Task<IActionResult> DeleteAuthor(Guid id)
+    {
+        await _serviceManager.AuthorService.DeleteAuthorAsync(id);
+        return NoContent();
+    }
+
+    #endregion
 }

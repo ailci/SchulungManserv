@@ -45,6 +45,13 @@ public class AuthorService : IAuthorService
         return _mapper.Map<AuthorDto>(authorEntity);
     }
 
+    public async Task DeleteAuthorAsync(Guid authorId)
+    {
+        var authorEntity = await GetAuthorAndCheckIfItExistsAsync(authorId);
+        _repositoryManager.AuthorRepo.DeleteAuthor(authorEntity);
+        await _repositoryManager.SaveAsync();
+    }
+
     private async Task<Author> GetAuthorAndCheckIfItExistsAsync(Guid authorId)
     {
         var author = await _repositoryManager.AuthorRepo.GetAuthorAsync(authorId);
