@@ -50,6 +50,8 @@ public class AuthorsController : ControllerBase
     [HttpPost(Name = "CreateAuthor")]
     public async Task<IActionResult> CreateAuthor(AuthorForCreateDto authorForCreateDto)
     {
+        //if (!ModelState.IsValid) return BadRequest(ModelState);
+
         var authorDto = await _serviceManager.AuthorService.CreateAuthorAsync(authorForCreateDto);
 
         return CreatedAtRoute("GetAuthor", new { id = authorDto.Id }, authorDto);
