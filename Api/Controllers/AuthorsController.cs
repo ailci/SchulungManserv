@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Shared.DataTransferObjects;
 
 namespace Api.Controllers;
 
@@ -40,6 +41,18 @@ public class AuthorsController : ControllerBase
         //if (authorDto is null) return NotFound();
 
         return Ok(authorDto);
+    }
+
+    #endregion
+
+    #region POST
+
+    [HttpPost(Name = "CreateAuthor")]
+    public async Task<IActionResult> CreateAuthor([FromBody] AuthorForCreateDto authorForCreateDto)
+    {
+        var authorDto = await _serviceManager.AuthorService.CreateAuthorAsync(authorForCreateDto);
+
+        return CreatedAtRoute("GetAuthor", new { id = authorDto.Id }, authorDto);
     }
 
     #endregion

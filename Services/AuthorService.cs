@@ -35,6 +35,16 @@ public class AuthorService : IAuthorService
         return _mapper.Map<AuthorDto>(authorEntity);
     }
 
+    public async Task<AuthorDto> CreateAuthorAsync(AuthorForCreateDto authorForCreateDto)
+    {
+        var authorEntity = _mapper.Map<Author>(authorForCreateDto);
+
+        _repositoryManager.AuthorRepo.CreateAuthor(authorEntity);
+        await _repositoryManager.SaveAsync();
+
+        return _mapper.Map<AuthorDto>(authorEntity);
+    }
+
     private async Task<Author> GetAuthorAndCheckIfItExistsAsync(Guid authorId)
     {
         var author = await _repositoryManager.AuthorRepo.GetAuthorAsync(authorId);
