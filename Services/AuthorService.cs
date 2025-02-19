@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Domain.Entities;
+using Domain.Exceptions;
 using Persistence.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -29,7 +31,16 @@ public class AuthorService : IAuthorService
 
     public async Task<AuthorDto> GetAuthorAsync(Guid authorId)
     {
+        var authorEntity = await GetAuthorAndCheckIfItExistsAsync(authorId);
+        return _mapper.Map<AuthorDto>(authorEntity);
+    }
+
+    private async Task<Author> GetAuthorAndCheckIfItExistsAsync(Guid authorId)
+    {
         var author = await _repositoryManager.AuthorRepo.GetAuthorAsync(authorId);
-        return _mapper.Map<AuthorDto>(author);
+
+        if (author is null) throw new AuthorNotFoundException(authorId);
+
+        return author;
     }
 }

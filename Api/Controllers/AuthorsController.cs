@@ -32,6 +32,9 @@ public class AuthorsController : ControllerBase
     public async Task<IActionResult> GetAuthor(Guid id)
     {
         var authorDto = await _serviceManager.AuthorService.GetAuthorAsync(id);
+
+        //if (authorDto is null) return NotFound();
+
         return Ok(authorDto);
     }
 

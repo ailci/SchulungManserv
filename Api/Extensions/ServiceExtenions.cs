@@ -18,6 +18,10 @@ public static class ServiceExtenions
         //Automapper
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+        //GlobalExceptionHandler
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
+
         return services;
     }
     

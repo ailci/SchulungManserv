@@ -36,6 +36,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline. ################################################
 //app.UseBrowserAllowedMiddleware(BrowserType.Chrome, BrowserType.Edge);
 
+app.UseExceptionHandler(opt => {});
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
