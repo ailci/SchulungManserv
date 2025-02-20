@@ -1,3 +1,4 @@
+using Client.UI.Services;
 using Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ builder.ConfigLoggingService();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IQotdApiService, QotdApiService>();
 
 //Named Http-Client
 builder.Services.AddHttpClient("qotdapiservice", client =>

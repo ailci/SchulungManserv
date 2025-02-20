@@ -1,3 +1,4 @@
+using Client.UI.Services;
 using Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,13 +11,15 @@ public class IndexModel : PageModel
 {
     private readonly ILoggerManager _logger;
     private readonly IHttpClientFactory _clientFactory;
+    private readonly IQotdApiService _apiService;
 
     public QuoteOfTheDayDto? QotdDto { get; set; }
 
-    public IndexModel(ILoggerManager logger, IHttpClientFactory clientFactory)
+    public IndexModel(ILoggerManager logger, IHttpClientFactory clientFactory, IQotdApiService apiService)
     {
         _logger = logger;
         _clientFactory = clientFactory;
+        _apiService = apiService;
     }
 
     public async Task OnGet()
@@ -33,8 +36,11 @@ public class IndexModel : PageModel
             //QotdDto = JsonSerializer.Deserialize<QuoteOfTheDayDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true});
 
             // 2.Version Netter
-            var client = _clientFactory.CreateClient("qotdapiservice");
-            QotdDto = await client.GetFromJsonAsync<QuoteOfTheDayDto>("qotd");
+            //var client = _clientFactory.CreateClient("qotdapiservice");
+            //QotdDto = await client.GetFromJsonAsync<QuoteOfTheDayDto>("qotd");
+
+            // 3. Version mit Service
+            QotdDto = await _apiService.GetQuoteOfTheDayAsync();
 
         }
         catch (HttpRequestException ex)
