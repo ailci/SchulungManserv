@@ -4,9 +4,31 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="text-center">
+        <div class="p-2 bg-light rounded-3">
+            <h5 class="display-6 py-3">Spruch des Tages</h5>
+            <p class="text-center">
+                @* 1. Variante *@
+                @if (!string.IsNullOrEmpty(Model.QotdDto?.AuthorPhotoMimeType) && Model.QotdDto.AuthorPhoto is not null && Model.QotdDto.AuthorPhoto.Length > 0)
+                {
+                    <img width="150" src="data:@Model.QotdDto?.AuthorPhotoMimeType;base64,@Convert.ToBase64String(Model.QotdDto?.AuthorPhoto!)" />
+                }
+                else
+                {
+                    <img width="150" src="https://via.placeholder.com/150" />
+                }
+            </p>
+            <blockquote class="text-center">
+                <p class="lead fw-bold" id="quote">@Model?.QotdDto?.QuoteText</p>
+                <cite>
+                    <span>@Model?.QotdDto?.AuthorName - @Model?.QotdDto?.AuthorDescription</span>
+                    <br />
+                    <span>
+                        @(Model?.QotdDto?.AuthorBirthdate is not null ? Model.QotdDto.AuthorBirthdate.Value.ToShortDateString() : "")
+                    </span>
+                </cite>
+            </blockquote>
+        </div>
+    </div>
 </div>
-
-@Model.QotdDto?.QuoteText
