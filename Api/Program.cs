@@ -2,6 +2,7 @@ using Api.Controllers;
 using Api.Extensions;
 using Api.Middleware;
 using Logging;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,8 @@ app.UseExceptionHandler(opt => {});
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
+    app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "Qotd API"));
 }
 
 app.UseHttpsRedirection();
