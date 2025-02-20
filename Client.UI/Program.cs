@@ -1,4 +1,5 @@
 using Client.UI;
+using Client.UI.Handler;
 using Client.UI.Services;
 using Logging;
 using Microsoft.Extensions.Options;
@@ -21,13 +22,15 @@ builder.Services.AddScoped<IQotdApiService, QotdApiService>();
 //});
 
 //Typed Http-Client
+builder.Services.AddTransient<ApiKeyDelegatingHandler>();
 builder.Services.AddHttpClient<IQotdApiService, QotdApiService>((sp,client) =>
 {
     var apiConfiguration = sp.GetRequiredService<IOptions<QotdAppSettings>>().Value;
     client.BaseAddress = new Uri(apiConfiguration.QotdServiceUri);
     //client.BaseAddress = new Uri("https://localhost:7083/api/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
-});
+    //client.DefaultRequestHeaders.Add("x-api-key", apiConfiguration.XApiKey);
+}).AddHttpMessageHandler<ApiKeyDelegatingHandler>();
 
 var app = builder.Build();
 

@@ -22,7 +22,7 @@ public class QotdApiService(ILoggerManager logger, HttpClient client, IOptions<Q
     {
         logger.LogInformation($"{nameof(GetQuoteOfTheDaySecuredAsync)} aufgerufen...");
         
-        client.DefaultRequestHeaders.Add("x-api-key", _appSettings.XApiKey);
+        //client.DefaultRequestHeaders.Add("x-api-key", _appSettings.XApiKey);
         
         return await client.GetFromJsonAsync<QuoteOfTheDayDto>(QotdSecuredUri);
     }
