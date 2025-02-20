@@ -12,22 +12,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>
-            <!-- AuthorPhoto -->
-        </td>
-        <td>
-            <!-- AuthorName -->
-        </td>
-        <td>
-            <!-- AuthorDescription -->
-        </td>
-        <td>
-            <!-- AuthorBirthdate -->
-        </td>
-        <td>
-            <!-- Löschen Button -->
-        </td>
-    </tr>
+    @foreach (var author in Model.AuthorDtos)
+    {
+        <tr>
+            <td>
+                <!-- AuthorPhoto -->
+            </td>
+            <td>
+                <!-- AuthorName -->
+            </td>
+            <td>
+                <!-- AuthorDescription -->
+            </td>
+            <td>
+                <!-- AuthorBirthdate -->
+            </td>
+            <td>
+                <!-- Löschen Button -->
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
