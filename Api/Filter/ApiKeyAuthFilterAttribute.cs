@@ -18,7 +18,7 @@ public class ApiKeyAuthFilterAttribute(IConfiguration configuration) : IAuthoriz
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
                 Title = "An error occurered",
                 Status = StatusCodes.Status401Unauthorized,
-                Detail = "Api Key ungültig!"
+                Detail = "Api Key fehlt!"
             });
             return;
         }

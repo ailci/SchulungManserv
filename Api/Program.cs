@@ -51,7 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseApiKeyAuthMiddleware();
+//app.UseApiKeyAuthMiddleware();
 
 app.UseAuthorization();
 

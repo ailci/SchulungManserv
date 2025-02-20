@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Api.Filter;
+using Domain.Entities;
 using Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ public class QotdController(IServiceManager serviceManager, ILoggerManager logge
     }
     
     [HttpGet("secured")]  //=> localhost:1234/api/qotd/secured
+    [ServiceFilter(typeof(ApiKeyAuthFilterAttribute))] // via Filter
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
