@@ -8,6 +8,21 @@ builder.ConfigLoggingService();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+//Named Http-Client
+builder.Services.AddHttpClient("qotdapiservice", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7083/api/");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+
+
+
+
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
