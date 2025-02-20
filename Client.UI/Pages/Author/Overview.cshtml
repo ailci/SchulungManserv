@@ -1,36 +1,51 @@
 ﻿@page
 @model Client.UI.Pages.Author.OverviewModel
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>Photo</th>
-        <th>Name</th>
-        <th>Beschreibung</th>
-        <th>Geburtsdatum</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var author in Model.AuthorDtos)
-    {
-        <tr>
-            <td>
-                <!-- AuthorPhoto -->
-            </td>
-            <td>
-                <!-- AuthorName -->
-            </td>
-            <td>
-                <!-- AuthorDescription -->
-            </td>
-            <td>
-                <!-- AuthorBirthdate -->
-            </td>
-            <td>
-                <!-- Löschen Button -->
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+@if (Model.AuthorDtos.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Beschreibung</th>
+                <th>Geburtsdatum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in Model.AuthorDtos)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(author.PhotoMimeType) && author.Photo is not null && author.Photo.Length > 0)
+                        {
+                            <img width="120" src="data:@author.PhotoMimeType;base64,@Convert.ToBase64String(author.Photo!)" />
+                        }
+                        else
+                        {
+                            <img width="120" src="https://placehold.co/120" />
+                        }
+                    </td>
+                    <td>
+                        @author.Name
+                    </td>
+                    <td>
+                        @author.Description
+                    </td>
+                    <td>
+                        @(author.BirthDate is not null ? author.BirthDate.Value.ToShortDateString() : "k.A.")
+                    </td>
+                    <td>
+                        <!-- Löschen Button -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>Sorry. Keine Daten vorhanden</div>
+}
+

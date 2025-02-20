@@ -10,6 +10,7 @@ public class QotdApiService(ILoggerManager logger, HttpClient client, IOptions<Q
     private readonly QotdAppSettings _appSettings = appSettings.Value;
     private const string QotdUri = "qotd";
     private const string QotdSecuredUri = "qotd/secured";
+    private const string QotdAuthorsUri = "authors";
 
     public async Task<QuoteOfTheDayDto> GetQuoteOfTheDayAsync()
     {
@@ -25,5 +26,12 @@ public class QotdApiService(ILoggerManager logger, HttpClient client, IOptions<Q
         //client.DefaultRequestHeaders.Add("x-api-key", _appSettings.XApiKey);
         
         return await client.GetFromJsonAsync<QuoteOfTheDayDto>(QotdSecuredUri);
+    }
+
+    public async Task<IEnumerable<AuthorDto>> GetAuthorsAsync()
+    {
+        logger.LogInformation($"{nameof(GetAuthorsAsync)} aufgerufen...");
+
+        return await client.GetFromJsonAsync<IEnumerable<AuthorDto>>(QotdAuthorsUri);
     }
 }
