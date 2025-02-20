@@ -14,4 +14,13 @@ public class OverviewModel(ILoggerManager logger, IQotdApiService apiService) : 
     {
         AuthorDtos = await apiService.GetAuthorsAsync();
     }
+
+    public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+    {
+        var deleted = await apiService.DeleteAuthorAsync(id);
+
+        if(deleted) return RedirectToPage();
+
+        return Page();
+    }
 }
