@@ -11,12 +11,18 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IQotdApiService, QotdApiService>();
 
 //Named Http-Client
-builder.Services.AddHttpClient("qotdapiservice", client =>
+//builder.Services.AddHttpClient("qotdapiservice", client =>
+//{
+//    client.BaseAddress = new Uri("https://localhost:7083/api/");
+//    client.DefaultRequestHeaders.Add("Accept", "application/json");
+//});
+
+//Typed Http-Client
+builder.Services.AddHttpClient<IQotdApiService, QotdApiService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7083/api/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
-
 
 
 
